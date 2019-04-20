@@ -7,7 +7,8 @@ module.exports = {
 };
 
 async function insert(galaxy) {
-  return null;
+  const [id] = await db('galaxies').insert(galaxy);
+  return db('galaxies').where({ id }).first();
 }
 
 function remove(id) {
