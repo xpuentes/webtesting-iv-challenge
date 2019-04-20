@@ -26,10 +26,35 @@ describe('The Galaxies Model', () => {
     });
   });
 
+  describe('The GetAll Function', () => {
+
+    it('should retreive all galaxies in db', async () => {
+      await db('galaxies').insert([
+        {name: 'sombrero'},
+        {name: 'sunflower'}
+      ]);
+
+      const galaxies = await Galaxies.getAll();
+
+      expect(galaxies.length).toBe(2);
+      expect(galaxies[0].name).toBe('sombrero');
+    });
+  });
+
   describe('The Remove Function', () => {
 
-    it('should delete a galaxy', async () => {
+    it('should delete a galay by id', async () => {
+      await db('galaxies').insert([
+        {name: 'sombrero'},
+        {name: 'sunflower'}
+      ]);
 
+      await Galaxies.remove(1);
+
+      const galaxies = await Galaxies.getAll();
+
+      expect(galaxies.length).toBe(1);
+      expect(galaxies[0].name).toBe('sunflower');
     });
   });
 });

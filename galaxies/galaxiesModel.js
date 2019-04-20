@@ -12,7 +12,7 @@ async function insert(galaxy) {
 }
 
 function remove(id) {
-  return null;
+  return db('galaxies').where({ id }).del();
 }
 
 function getAll() {
